@@ -1,0 +1,30 @@
+type LoanDescriptor @entity {
+    id: ID!
+    first_obligation: BigInt
+    total_obligation: BigInt
+    duration: BigInt
+    interest_rate: BigInt
+    punitive_interest_rate: BigInt
+    frequency: BigInt
+    installments: BigInt
+}
+
+type Loan @entity {
+    id: ID!
+    open: Boolean!
+    approved: Boolean!
+    expiration: BigInt!
+    amount: BigInt!
+    cosigner: String!
+    model: String!
+    creator: String!
+    oracle: String!
+    borrower: String!
+    loanData: Bytes!
+    created: BigInt
+    currency: String
+    status: BigInt!
+    canceled: Boolean!
+    lender: String
+    descriptor: LoanDescriptor
+}

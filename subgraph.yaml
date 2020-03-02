@@ -1,0 +1,68 @@
+specVersion: 0.0.2
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum/contract
+    name: Contract
+    network: ropsten
+    source:
+      address: "0x39E67f667eD83c8A2DB0b18189FE93f57081b9aE"
+      abi: Contract
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.3
+      language: wasm/assemblyscript
+      entities:
+        - Requested
+        - Approved
+        - Lent
+        - Cosigned
+        - Canceled
+        - ReadedOracle
+        - ApprovedRejected
+        - ApprovedError
+        - ApprovedByCallback
+        - ApprovedBySignature
+        - CreatorByCallback
+        - BorrowerByCallback
+        - CreatorBySignature
+        - BorrowerBySignature
+        - SettledLend
+        - SettledCancel
+      abis:
+        - name: Contract
+          file: ./abis/Contract.json
+      eventHandlers:
+        - event: Requested(indexed bytes32,uint128,address,address,address,address,address,uint256,bytes,uint256)
+          handler: handleRequested
+        - event: Approved(indexed bytes32)
+          handler: handleApproved
+        - event: Lent(indexed bytes32,address,uint256)
+          handler: handleLent
+        - event: Cosigned(indexed bytes32,address,uint256)
+          handler: handleCosigned
+        - event: Canceled(indexed bytes32,address)
+          handler: handleCanceled
+        - event: ReadedOracle(address,uint256,uint256)
+          handler: handleReadedOracle
+        - event: ApprovedRejected(indexed bytes32,bytes32)
+          handler: handleApprovedRejected
+        - event: ApprovedError(indexed bytes32,bytes32)
+          handler: handleApprovedError
+        - event: ApprovedByCallback(indexed bytes32)
+          handler: handleApprovedByCallback
+        - event: ApprovedBySignature(indexed bytes32)
+          handler: handleApprovedBySignature
+        - event: CreatorByCallback(indexed bytes32)
+          handler: handleCreatorByCallback
+        - event: BorrowerByCallback(indexed bytes32)
+          handler: handleBorrowerByCallback
+        - event: CreatorBySignature(indexed bytes32)
+          handler: handleCreatorBySignature
+        - event: BorrowerBySignature(indexed bytes32)
+          handler: handleBorrowerBySignature
+        - event: SettledLend(indexed bytes32,address,uint256)
+          handler: handleSettledLend
+        - event: SettledCancel(indexed bytes32,address)
+          handler: handleSettledCancel
+      file: ./src/mapping.ts
